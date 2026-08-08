@@ -1,1 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Nova Home</title>
+  <!-- Telegram Web App SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <!-- Global Theme CSS -->
+  <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
 
+  <!-- Top Navigation Bar -->
+  <header class="top-bar glass-card">
+    <!-- Left: Telegram Profile -->
+    <div id="profile-container" class="profile-section">
+      <!-- Will be loaded dynamically via profile.js -->
+      <div class="profile-placeholder">Loading...</div>
+    </div>
+
+    <!-- Right: 3-Dot Menu -->
+    <div class="menu-container">
+      <button id="menu-btn" class="squircle-btn icon-btn">
+        <span>&#8942;</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Area (Nova Home / Dynamic Views) -->
+  <main id="main-content" class="content-container">
+    <!-- Will be loaded dynamically via nova-home.js or other tabs -->
+    <div class="glass-card welcome-card">
+      <h2>Welcome to Nova Home</h2>
+      <p>Loading events and leaderboards...</p>
+    </div>
+  </main>
+
+  <!-- Bottom Navigation Bar (4 Options) -->
+  <nav id="bottom-nav" class="bottom-nav glass-card">
+    <!-- Will be loaded dynamically via bottom-nav.js -->
+  </nav>
+
+  <!-- Modular Scripts -->
+  <script src="js/telegram-auth.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/nova-home.js"></script>
+  <script src="js/bottom-nav.js"></script>
+</body>
+</html>
