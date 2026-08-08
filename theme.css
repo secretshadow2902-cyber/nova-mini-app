@@ -1,101 +1,53 @@
 /* ==========================================
-   NOVA HOME & LEADERBOARD STYLING (Added to theme.css)
+   BOTTOM NAVIGATION STYLING (Added to theme.css)
    ========================================== */
 
-.content-container {
-  padding: 0 12px;
-  flex: 1;
-  overflow-y: auto;
-  margin-bottom: 70px; /* Space for bottom nav */
-}
-
-.nova-section {
-  padding: 16px;
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 12px;
+  padding: 8px 12px;
   border-radius: var(--squircle-radius);
+  z-index: 1000;
 }
 
-.section-header {
+.nav-items-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  margin-bottom: 12px;
 }
 
-.section-header h3 {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.badge {
-  background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 3px 8px;
-  border-radius: 8px;
-}
-
-.view-all-link {
-  font-size: 12px;
-  color: var(--accent-color);
-  font-weight: 500;
-}
-
-.news-content .news-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 4px;
-}
-
-.news-content .news-desc {
-  font-size: 12px;
-  color: var(--text-secondary);
-  line-height: 1.4;
-}
-
-.leaderboard-list {
+.nav-item {
+  background: transparent;
+  border: none;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-}
-
-.leaderboard-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(255, 255, 255, 0.03);
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.rank {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  font-weight: bold;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  color: var(--text-secondary);
 }
 
-.rank.gold { background: #eab308; color: #000; }
-.rank.silver { background: #94a3b8; color: #000; }
-.rank.bronze { background: #d97706; color: #fff; }
+.nav-item .nav-icon {
+  font-size: 18px;
+  margin-bottom: 2px;
+}
 
-.player-name {
-  flex: 1;
-  margin-left: 12px;
-  font-size: 13px;
+.nav-item .nav-label {
+  font-size: 11px;
   font-weight: 500;
-  color: var(--text-primary);
 }
 
-.player-score {
-  font-size: 13px;
-  font-weight: 600;
-  color: #22c55e;
+.nav-item.active {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-item:active {
+  transform: scale(0.95);
 }
