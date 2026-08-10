@@ -1,29 +1,13 @@
-/* ==========================================
-   TELEGRAM-AUTH.JS - Telegram WebApp Integration
-   ========================================== */
-
-let telegramUser = null;
-
+// Telegram User Data Sync
 document.addEventListener("DOMContentLoaded", () => {
-  initTelegramAuth();
-});
-
-function initTelegramAuth() {
   const tg = window.Telegram?.WebApp;
-  
   if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-    telegramUser = tg.initDataUnsafe.user;
-    tg.expand(); // Mini app ko full screen expand karein
-  } else {
-    // Fallback data agar browser ya test mode mein khula ho
-    telegramUser = {
-      id: 12345678,
-      first_name: "Hemant",
-      username: "secretshadow"
-    };
+    const user = tg.initDataUnsafe.user;
+    if (user.first_name) {
+      const nameEl = document.getElementById('user-display-name');
+      const avatarEl = document.getElementById('user-avatar-letter');
+      if (nameEl) nameEl.innerText = user.first_name;
+      if (avatarEl) avatarEl.innerText = user.first_name.charAt(0).toUpperCase();
+    }
   }
-
-  // Event trigger karein taaki profile aur home components data load kar sakein
-  const event = new CustomEvent("telegramUserReady", { detail: telegramUser });
-  document.dispatchEvent(event);
-}
+});
