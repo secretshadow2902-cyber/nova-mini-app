@@ -1,6 +1,6 @@
 // Bottom Nav Switcher Logic
 document.addEventListener("DOMContentLoaded", () => {
-  // Load home by default on start
+  // Load Nova Home by default in center/start
   const mainContainer = document.getElementById("main-content");
   if (mainContainer && typeof getHomeScreenHTML === "function") {
     mainContainer.innerHTML = getHomeScreenHTML();
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function switchTab(tabName, el) {
   if (el) {
-    document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
+    document.querySelectorAll(".nav-btn, .nav-center-btn").forEach(btn => btn.classList.remove("active"));
     el.classList.add("active");
   }
 
@@ -18,6 +18,8 @@ function switchTab(tabName, el) {
 
   if (tabName === "home" && typeof getHomeScreenHTML === "function") {
     mainContainer.innerHTML = getHomeScreenHTML();
+  } else if (tabName === "shop" && typeof getShopScreenHTML === "function") {
+    mainContainer.innerHTML = getShopScreenHTML();
   } else if (tabName === "games" && typeof getGamesScreenHTML === "function") {
     mainContainer.innerHTML = getGamesScreenHTML();
   } else if (tabName === "rank" && typeof getRankScreenHTML === "function") {
