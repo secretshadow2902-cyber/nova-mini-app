@@ -1,34 +1,29 @@
 /* ==========================================
-   TELEGRAM-AUTH.JS - Handles Telegram WebApp Data
+   TELEGRAM-AUTH.JS - Telegram WebApp Integration
    ========================================== */
 
-const TelegramAuth = {
-  init() {
-    const tg = window.Telegram?.WebApp;
-    if (tg) {
-      tg.ready();
-      tg.expand(); // App ko full screen expand karne ke liye
-      
-      // User data fetch karna agar available ho
-      const user = tg.initDataUnsafe?.user;
-      return {
-        id: user ? user.id : 'guest_123',
-        firstName: user ? user.firstName : 'Nova User',
-        lastName: user ? user.lastName : '',
-        username: user ? user.username : 'novaguest',
-        photoUrl: user ? user.photoUrl : null,
-        isTelegram: true
-      };
-    } else {
-      // Agar browser mein test kar rahe hain (Telegram ke bahar)
-      return {
-        id: 'web_test_123',
-        firstName: 'Hemant',
-        lastName: '',
-        username: 'hemantsanjay',
-        photoUrl: null,
-        isTelegram: false
-      };
-    }
+let telegramUser = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+  initTelegramAuth();
+});
+
+function initTelegramAuth() {
+  const tg = window.Telegram?.WebApp;
+  
+  if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+    telegramUser = tg.initDataUnsafe.user;
+    tg.expand(); // Mini app ko full screen expand karein
+  } else {
+    // Fallback data agar browser ya test mode mein khula ho
+    telegramUser = {
+      id: 12345678,
+      first_name: "Hemant",
+      username: "secretshadow"
+    };
   }
-};
+
+  // Event trigger karein taaki profile aur home components data load kar sakein
+  const event = new CustomEvent("telegramUserReady", { detail: telegramUser });
+  document.dispatchEvent(event);
+}
