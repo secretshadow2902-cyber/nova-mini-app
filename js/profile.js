@@ -1,3 +1,18 @@
+function getShopScreenHTML() {
+  return `
+    <section class="glass-card">
+      <div class="section-title">
+        <h4>🛒 Nova Shop</h4>
+      </div>
+      <p style="color:var(--text-secondary); font-size:13px; margin-bottom:14px;">Upgrade your power-ups, energy packs, and exclusive items.</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <div class="game-card"><div class="game-thumb">⚡</div><div class="game-info"><h5>Energy Pack</h5><p>+500 Energy</p></div><button class="play-now-btn" onclick="alert('Purchased Energy Pack!')">Buy 100 🪙</button></div>
+        <div class="game-card"><div class="game-thumb">💎</div><div class="game-info"><h5>Diamond Box</h5><p>Mystery Loot</p></div><button class="play-now-btn" onclick="alert('Purchased Diamond Box!')">Buy 50 💎</button></div>
+      </div>
+    </section>
+  `;
+}
+
 function getProfileScreenHTML() {
   return `
     <section class="glass-card" style="text-align:center; padding:24px;">
