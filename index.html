@@ -3,32 +3,331 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nova Mini App</title>
-  <!-- Telegram WebApp SDK -->
+  <title>Nova Mini App - Secret Empire Association</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <!-- Correct CSS Path -->
-  <link rel="stylesheet" href="./css/theme.css">
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.75);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-color: #38bdf8;
+      --squircle-radius: 20px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 90px;
+    }
+
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .profile-card-mini {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .profile-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #000;
+      font-size: 16px;
+    }
+
+    .profile-info h4 {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .profile-info span {
+      font-size: 11px;
+      color: var(--accent-color);
+    }
+
+    .menu-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .main-container {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--squircle-radius);
+      padding: 18px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .section-header h3 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .badge {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-color);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .news-desc {
+      color: var(--text-secondary);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .leaderboard-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .leaderboard-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      font-size: 13px;
+    }
+
+    .rank-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+
+    .rank-pts {
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: 10px;
+      padding: 8px 10px;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--squircle-radius);
+      z-index: 1000;
+    }
+
+    .nav-items-wrapper {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .nav-item {
+      background: transparent;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 6px 14px;
+      border-radius: 12px;
+      color: var(--text-secondary);
+      transition: 0.2s;
+    }
+
+    .nav-item .nav-icon {
+      font-size: 16px;
+      margin-bottom: 2px;
+    }
+
+    .nav-item .nav-label {
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    .nav-item.active {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.1);
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Top Navigation / Profile Header -->
+  <!-- Header -->
   <header class="app-header">
-    <div id="profile-container"></div>
-    <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+    <div class="profile-card-mini">
+      <div class="profile-avatar" id="avatar-letter">H</div>
+      <div class="profile-info">
+        <h4 id="user-name">Hemant</h4>
+        <span>Connected</span>
+      </div>
+    </div>
+    <button class="menu-btn" onclick="alert('Secret Empire Association Menu')">⋮</button>
   </header>
 
-  <!-- Main Content Area -->
+  <!-- Main View -->
   <main id="main-content" class="main-container">
-    <!-- Dynamic content will load here -->
+    <section class="glass-card">
+      <div class="section-header">
+        <h3>📢 Nova Events & News</h3>
+        <span class="badge">Live</span>
+      </div>
+      <p class="news-desc">Welcome to Secret Empire Association! Stay tuned for upcoming community tournaments, score challenges, and exclusive group updates.</p>
+    </section>
+
+    <section class="glass-card">
+      <div class="section-header">
+        <h3>🏆 Global Leaderboard</h3>
+        <span class="badge">Top Players</span>
+      </div>
+      <div class="leaderboard-list">
+        <div class="leaderboard-item">
+          <div class="rank-info"><span>1</span><span>Hemant</span></div>
+          <span class="rank-pts">2,450 pts</span>
+        </div>
+        <div class="leaderboard-item">
+          <div class="rank-info"><span>2</span><span>Secret Member</span></div>
+          <span class="rank-pts">2,120 pts</span>
+        </div>
+        <div class="leaderboard-item">
+          <div class="rank-info"><span>3</span><span>Nova Player</span></div>
+          <span class="rank-pts">1,890 pts</span>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- Bottom Navigation Bar -->
-  <nav id="bottom-nav" class="bottom-nav"></nav>
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <div class="nav-items-wrapper">
+      <button class="nav-item active" onclick="switchTab('home', this)">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Home</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('tasks', this)">
+        <span class="nav-icon">📋</span>
+        <span class="nav-label">Tasks</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('ranks', this)">
+        <span class="nav-icon">🏆</span>
+        <span class="nav-label">Ranks</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('profile', this)">
+        <span class="nav-icon">👤</span>
+        <span class="nav-label">Profile</span>
+      </button>
+    </div>
+  </nav>
 
-  <!-- JavaScript Modules -->
-  <script src="./js/telegram-auth.js"></script>
-  <script src="./js/profile.js"></script>
-  <script src="./js/nova-home.js"></script>
-  <script src="./js/bottom-nav.js"></script>
+  <script>
+    // Telegram User Integration & Tab Switcher
+    window.addEventListener('DOMContentLoaded', () => {
+      const tg = window.Telegram?.WebApp;
+      if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+        const user = tg.initDataUnsafe.user;
+        if (user.first_name) {
+          document.getElementById('user-name').innerText = user.first_name;
+          document.getElementById('avatar-letter').innerText = user.first_name.charAt(0).toUpperCase();
+        }
+      }
+    });
+
+    function switchTab(tab, el) {
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+      el.classList.add('active');
+
+      const content = document.getElementById('main-content');
+      if (tab === 'home') {
+        content.innerHTML = `
+          <section class="glass-card">
+            <div class="section-header"><h3>📢 Nova Events & News</h3><span class="badge">Live</span></div>
+            <p class="news-desc">Welcome to Secret Empire Association! Stay tuned for upcoming community tournaments, score challenges, and exclusive group updates.</p>
+          </section>
+          <section class="glass-card">
+            <div class="section-header"><h3>🏆 Global Leaderboard</h3><span class="badge">Top Players</span></div>
+            <div class="leaderboard-list">
+              <div class="leaderboard-item"><div class="rank-info"><span>1</span><span>Hemant</span></div><span class="rank-pts">2,450 pts</span></div>
+              <div class="leaderboard-item"><div class="rank-info"><span>2</span><span>Secret Member</span></div><span class="rank-pts">2,120 pts</span></div>
+              <div class="leaderboard-item"><div class="rank-info"><span>3</span><span>Nova Player</span></div><span class="rank-pts">1,890 pts</span></div>
+            </div>
+          </section>
+        `;
+      } else if (tab === 'tasks') {
+        content.innerHTML = `
+          <section class="glass-card">
+            <div class="section-header"><h3>📋 Secret Tasks</h3><span class="badge">Active</span></div>
+            <p class="news-desc">Complete daily community tasks and challenges to earn exclusive points for Secret Empire Association.</p>
+          </section>
+        `;
+      } else if (tab === 'ranks') {
+        content.innerHTML = `
+          <section class="glass-card">
+            <div class="section-header"><h3>🏆 Community Rankings</h3><span class="badge">Global</span></div>
+            <p class="news-desc">Check out the top-performing members across all categories and tournaments.</p>
+          </section>
+        `;
+      } else if (tab === 'profile') {
+        content.innerHTML = `
+          <section class="glass-card">
+            <div class="section-header"><h3>👤 Member Profile</h3><span class="badge">Connected</span></div>
+            <p class="news-desc">Your personal Telegram account details, stats, and achievements are linked securely here.</p>
+          </section>
+        `;
+      }
+    }
+  </script>
 </body>
 </html>
