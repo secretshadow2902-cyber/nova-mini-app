@@ -1,65 +1,364 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Secret Nova - Secret Empire Association</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <link rel="stylesheet" href="theme.css">
-</head>
-<body>
+:root {
+  --bg-color: #070913;
+  --card-bg: rgba(18, 22, 40, 0.85);
+  --card-border: rgba(168, 85, 247, 0.25);
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --accent-purple: #a855f7;
+  --accent-blue: #38bdf8;
+  --gold: #f59e0b;
+  --radius: 20px;
+}
 
-  <!-- Top Header -->
-  <header class="app-header">
-    <div class="brand-logo">
-      <div class="logo-circle">SN</div>
-      <div class="brand-title">SECRET NOVA</div>
-    </div>
-    <div class="user-pill">
-      <div class="user-avatar" id="user-avatar-letter">H</div>
-      <span id="user-display-name">Hemant</span>
-    </div>
-  </header>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
 
-  <!-- Wallet Bar -->
-  <div class="wallet-bar">
-    <div class="wallet-chip">🪙 <span class="val">12,450</span></div>
-    <div class="wallet-chip">💎 <span class="val">860</span></div>
-    <div class="wallet-chip">⚡ <span class="val">2,350</span></div>
-  </div>
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 110px;
+  overflow-x: hidden;
+}
 
-  <!-- Dynamic Content Container -->
-  <main id="main-content" class="main-container">
-    <!-- Default content loaded via JS -->
-  </main>
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  background: rgba(7, 9, 19, 0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
-  <!-- Bottom Navigation Bar -->
-  <nav class="gamee-nav">
-    <button class="nav-btn active" onclick="switchTab('home', this)">
-      <span class="icon">🏠</span>
-      <span>Home</span>
-    </button>
-    <button class="nav-btn" onclick="switchTab('games', this)">
-      <span class="icon">🎮</span>
-      <span>Games</span>
-    </button>
-    <button class="nav-center-btn" onclick="alert('Secret Empire Voice & Hub Chat')">
-      🎙️
-    </button>
-    <button class="nav-btn" onclick="switchTab('rank', this)">
-      <span class="icon">🏆</span>
-      <span>Rank</span>
-    </button>
-    <button class="nav-btn" onclick="switchTab('profile', this)">
-      <span class="icon">👤</span>
-      <span>Profile</span>
-    </button>
-  </nav>
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-  <!-- JS Modules Load -->
-  <script src="js/telegram-auth.js"></script>
-  <script src="js/nova-home.js"></script>
-  <script src="js/profile.js"></script>
-  <script src="js/bottom-nav.js"></script>
-</body>
-</html>
+.logo-circle {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 15px;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+}
+
+.brand-title {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  background: linear-gradient(to right, #fff, #cbd5e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.user-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card-bg);
+  padding: 4px 12px 4px 4px;
+  border-radius: 30px;
+  border: 1px solid var(--card-border);
+}
+
+.user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.user-pill span {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.wallet-bar {
+  display: flex;
+  gap: 10px;
+  padding: 12px 16px;
+  overflow-x: auto;
+}
+
+.wallet-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 6px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.wallet-chip span.val {
+  color: var(--gold);
+}
+
+.main-container {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.daily-reward-card {
+  background: linear-gradient(135deg, rgba(30, 27, 75, 0.85), rgba(15, 23, 42, 0.95)), 
+              radial-gradient(circle at top right, rgba(168, 85, 247, 0.35), transparent);
+}
+
+.daily-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.daily-header h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.daily-header p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 3px;
+}
+
+.streak-badge {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--gold);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.claim-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent-purple), #6366f1);
+  border: none;
+  color: white;
+  padding: 12px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  text-align: center;
+}
+
+.quick-item {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 12px 4px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.quick-icon {
+  font-size: 20px;
+}
+
+.quick-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.section-title h4 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.view-all {
+  font-size: 12px;
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.games-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.game-card {
+  min-width: 135px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.game-thumb {
+  width: 100%;
+  height: 90px;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+
+.game-info h5 {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.game-info p {
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.play-now-btn {
+  width: 100%;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-blue);
+  border: none;
+  padding: 6px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.lb-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.lb-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.lb-score {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.gamee-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(7, 9, 19, 0.95);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 16px 20px 16px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.nav-btn .icon {
+  font-size: 20px;
+}
+
+.nav-btn span {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.nav-btn.active {
+  color: var(--accent-blue);
+}
+
+.nav-center-btn {
+  width: 54px;
+  height: 54px;
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+  border-radius: 50%;
+  border: 3px solid var(--bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(168, 85, 247, 0.6);
+  margin-top: -26px;
+}
